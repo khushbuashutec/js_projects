@@ -61,7 +61,6 @@ const getAPI = async function () {
                         title.innerHTML = `${response_data.first_name} ${response_data.last_name}`;
                         email.innerHTML = response_data.email;
                         image.src = `${response_data.avatar}`;
-                        console.log(response_data);
                     }
 
                 } catch (err) {
