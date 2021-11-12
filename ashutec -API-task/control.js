@@ -28,54 +28,58 @@ const add_item = function (item) {
 const getAPI = async function () {
 
 
-    const res = await Promise.all([
-        fetch('https://reqres.in/api/users'),
-        fetch('https://reqres.in/api/users/?&page=2')])
-    if (res) {
-        document.querySelector('.text-center').remove()
-    }
-    let [data1, data2] = await Promise.all(res.map(e => e.json()));
-    let page1 = data1.data;
-    // page1.forEach(el => add_item(el));
-    let page2 = data2.data;
-    // page2.forEach(el => add_item(el));
+    const res = await fetch('https://reqres.in/api/users');
+    const { data } = await res.json();
+    // data = data.data
+    console.log(data);
 
-    const data = [...page1, ...page2]
-    data.forEach(el => add_item(el));
-
-    const Buttons_view = document.querySelectorAll('.view-button')
-    Buttons_view.forEach(el => {
-        el.addEventListener('click', function (e) {
-            const title = document.querySelector('.modal-title')
-            const email = document.querySelector('.email')
-            const image = document.querySelector('.image')
-            const modal_window = document.querySelector('.modal-content')
-            const id = e.target.id;
-            const model = async function () {
-                try {
-
-                    const response = await fetch(`https://reqres.in/api/users/${id}`);
-                    let response_data = await response.json()
-                    response_data = response_data.data;
-                    if (response) {
-                        title.innerHTML = `${response_data.first_name} ${response_data.last_name}`;
-                        email.innerHTML = response_data.email;
-                        image.src = `${response_data.avatar}`;
-                    }
-
-                } catch (err) {
-                    modal_window.innerHTML = ""
-                    modal_window.textContent = new Error('Can not find user!💥💥💥💥💥💥');
-                }
-            }
-            model();
-
-        })
-    })
 }
+// Promise.all([
+// fetch('https://reqres.in/api/users/?&page=2')])
+// if (res) {
+//     document.querySelector('.text-center').remove()
+// }
+// let [data1, data2] = await Promise.all(res.map(e => e.json()));
+// let page1 = data1.data;
+// page1.forEach(el => add_item(el));
+// let page2 = data2.data;
+// page2.forEach(el => add_item(el));
+
+// const data = [...page1, ...page2]
+// data.forEach(el => add_item(el));
+//     const Buttons_view = document.querySelectorAll('.view-button')
+//     Buttons_view.forEach(el => {
+//         el.addEventListener('click', function (e) {
+//             const title = document.querySelector('.modal-title')
+//             const email = document.querySelector('.email')
+//             const image = document.querySelector('.image')
+//             const modal_window = document.querySelector('.modal-content')
+//             const id = e.target.id;
+//             const model = async function () {
+//                 try {
+
+//                     const response = await fetch(`https://reqres.in/api/users/${id}`);
+//                     let response_data = await response.json()
+//                     response_data = response_data.data;
+//                     if (response) {
+//                         title.innerHTML = `${response_data.first_name} ${response_data.last_name}`;
+//                         email.innerHTML = response_data.email;
+//                         image.src = `${response_data.avatar}`;
+//                     }
+
+//                 } catch (err) {
+//                     modal_window.innerHTML = ""
+//                     modal_window.textContent = new Error('Can not find user!💥💥💥💥💥💥');
+//                 }
+//             }
+//             model();
+
+//         })
+//     })
+
 
 getAPI();
-window.addEventListener('load', addSpinner);
+// window.addEventListener('load', addSpinner);
 
 
 
